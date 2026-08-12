@@ -6,6 +6,10 @@ export async function generateStaticParams() {
 
   const { data, error } = await supabase.from("portfolio").select("id");
 
+  if (error) {
+    throw new Error(`generateStaticParams 실패: ${error.message}`);
+  }
+
   return data.map(row => ({
     id: String(row.id),
   }));
